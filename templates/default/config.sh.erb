@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Variables used in command construction
+DUPLICITY_USER="<%= node["duplicity"]["user"] %>"
+ARCHIVE="<%= node["duplicity"]["archive_dir"] %>"
+S3_BUCKET="<%= node["duplicity"]["s3_bucket"] %>"
+VOLUME_SIZE="<%= node["duplicity"]["volsize"] %>"
+FULL_IF_OLDER_THAN="1W"
+
+# Variables passed straight to duplicity
+export TMPDIR="<%= node["duplicity"]["tmp_dir"] %>"
+export PASSPHRASE="<%= node["duplicity"]["gpg_passphrase"] %>"
+export AWS_ACCESS_KEY_ID="<%= node["duplicity"]["aws_key_id"] %>" 
+export AWS_SECRET_ACCESS_KEY="<%= node["duplicity"]["aws_secret_access_key"] %>"
