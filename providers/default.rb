@@ -42,5 +42,6 @@ action :restore do
   execute "duplicity-restore-#{bkup_name}" do
     user node["duplicity"]["user"]
     command "/etc/duplicity/restore.sh '#{bkup_name}'"
+    only_if { ::Dir[::File.join(new_resource.path, "*")].empty? }
   end
 end
