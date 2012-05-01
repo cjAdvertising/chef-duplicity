@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /etc/duplicity/config.sh
+. /etc/duplicity/backups/db/$1.sh
+
+BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
+
+nice ionice -c3 duplicity \
+  --name "$BACKUP_NAME" \
+  --archive-dir "$ARCHIVE" \
+  --gpg-options "--homedir=~$DUPLICITY_USER/.gnupg" \
+  --s3-use-new-style \
+  "s3+http://$S3_BUCKET/$BACKUP_NAME" \
+  "$BACKUP_PATH" \
+  | logger -t duplicity
+
+
+mysql -h localhost -u root -p<%= node["mysql"]["server_root_password"] %> < "$BACKUP_PATH/$BACKUP_DB.sql"

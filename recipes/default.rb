@@ -45,6 +45,12 @@ directory "/etc/duplicity/backups" do
   mode "0700"
 end
 
+# Create db backups folder
+directory "/etc/duplicity/backups/db" do
+  owner node["duplicity"]["user"]
+  mode "0700"
+end
+
 # Create config
 template "/etc/duplicity/config.sh" do
   source "config.sh.erb"
@@ -58,8 +64,22 @@ cookbook_file "/etc/duplicity/backup.sh" do
   mode "0700"
 end
 
+# DB backup script
+template "/etc/duplicity/backup-db.sh" do
+  source "backup-db.sh.erb"
+  owner node["duplicity"]["user"]
+  mode "0700"
+end
+
 # Restore script
 cookbook_file "/etc/duplicity/restore.sh" do
+  owner node["duplicity"]["user"]
+  mode "0700"
+end
+
+# DB restore script
+template "/etc/duplicity/restore-db.sh" do
+  source "restore-db.sh.erb"
   owner node["duplicity"]["user"]
   mode "0700"
 end
