@@ -5,7 +5,7 @@
 
 BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
 DUMP_PATH="$BACKUP_PATH/$BACKUP_DB.sql"
-mkdir -p "$BACKUP_PATH"
+rm -rf "$BACKUP_PATH"
 
 nice ionice -c3 duplicity \
   --name "$BACKUP_NAME" \
