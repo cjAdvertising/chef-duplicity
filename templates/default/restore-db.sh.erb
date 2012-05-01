@@ -4,6 +4,8 @@
 . /etc/duplicity/backups/db/$1.sh
 
 BACKUP_PATH="$TMPDIR/duplicity-db-backup/$BACKUP_NAME"
+DUMP_PATH="$BACKUP_PATH/$BACKUP_DB.sql"
+mkdir -p "$BACKUP_PATH"
 
 nice ionice -c3 duplicity \
   --name "$BACKUP_NAME" \
@@ -14,5 +16,6 @@ nice ionice -c3 duplicity \
   "$BACKUP_PATH" \
   | logger -t duplicity
 
-
-mysql -h localhost -u root -p<%= node["mysql"]["server_root_password"] %> < "$BACKUP_PATH/$BACKUP_DB.sql"
+if [ -f "$DUMP_PATH" ]; then
+  mysql -h localhost -u root -p<%= node["mysql"]["server_root_password"] %> < "$DUMP_PATH"
+fi
