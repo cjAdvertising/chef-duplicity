@@ -84,4 +84,12 @@ template "/etc/duplicity/restore-db.sh" do
   mode "0700"
 end
 
-# TODO: Install Cron
+# Install Cron
+cron "duplicity-backup-cron" do
+  minute node["duplicity"]["cron"]["minute"]
+  hour node["duplicity"]["cron"]["hour"]
+  day node["duplicity"]["cron"]["day"]
+  month node["duplicity"]["cron"]["month"]
+  weekday node["duplicity"]["cron"]["weekday"]
+  command "/etc/duplicity/backup.sh ; /etc/duplicity/backup-db.sh"
+end

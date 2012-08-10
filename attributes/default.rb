@@ -30,6 +30,11 @@ default['duplicity']['aws_secret_access_key']   = ""
 default['duplicity']['s3_bucket']               = ""
 default['duplicity']['volsize']                 = "500"
 default['duplicity']['user']                    = "root"
+default['duplicity']['cron']['minute']          = "0"
+default['duplicity']['cron']['hour']            = "1"
+default['duplicity']['cron']['day']             = "*"
+default['duplicity']['cron']['month']           = "*"
+default['duplicity']['cron']['weekday']         = "*"
 
 tmp_dir = "/tmp"
 if attribute?("ec2")
