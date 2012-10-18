@@ -92,4 +92,9 @@ cron "duplicity-backup-cron" do
   month node["duplicity"]["cron"]["month"]
   weekday node["duplicity"]["cron"]["weekday"]
   command "/etc/duplicity/backup.sh ; /etc/duplicity/backup-db.sh"
+  if node["duplicity"]["cron"]["enabled"]
+    action :create
+  else
+    action :delete
+  end
 end
