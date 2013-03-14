@@ -29,6 +29,7 @@ default['duplicity']['aws_key_id']              = ""
 default['duplicity']['aws_secret_access_key']   = ""
 default['duplicity']['s3_bucket']               = ""
 default['duplicity']['volsize']                 = "500"
+default['duplicity']['full_if_older']           = "30D"
 default['duplicity']['user']                    = "root"
 default['duplicity']['cron']['enabled']         = false
 default['duplicity']['cron']['minute']          = "0"
